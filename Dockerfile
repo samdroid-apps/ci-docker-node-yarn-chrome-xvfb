@@ -10,5 +10,7 @@ RUN \
 
 # xvfb
 RUN \
-    export DISPLAY=:99.0 && \
+    export DISPLAY=:99.0
+
+ENTRYPOINT \
     Xvfb -ac $DISPLAY &
