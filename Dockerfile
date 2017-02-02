@@ -12,5 +12,6 @@ RUN \
 RUN \
     export DISPLAY=:99.0
 
-ENTRYPOINT \
+CMD \
     Xvfb -ac $DISPLAY &
+    
