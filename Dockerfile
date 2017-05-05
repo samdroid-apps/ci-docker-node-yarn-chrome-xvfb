@@ -1,4 +1,4 @@
-FROM kkarczmarczyk/node-yarn:6.9
+FROM node:6.10.2
 
 # chrome
 RUN \
