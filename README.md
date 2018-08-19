@@ -7,4 +7,4 @@ Docker image which has installed the following:
 - Chrome
 - Xvfb
 
-Also see [Docker Hub](https://hub.docker.com/r/joscha/node-yarn-chrome-xvfb/).
+Also see [Docker Hub](https://hub.docker.com/r/canvadev/node-yarn-chrome-xvfb/).
