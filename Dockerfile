@@ -1,5 +1,8 @@
 FROM node:10
 
+RUN groupmod -g 999 node && usermod -u 999 -g 999 node
+RUN usermod -d /home/buildkite-agent -l buildkite-agent node
+
 RUN \
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
@@ -12,3 +15,5 @@ RUN \
 
 CMD \
     Xvfb -ac $DISPLAY &
+
+USER buildkite-agent
