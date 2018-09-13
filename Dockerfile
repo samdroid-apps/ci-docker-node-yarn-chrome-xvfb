@@ -127,6 +127,12 @@ RUN \
       xvfb \
   && rm -rf /var/lib/apt/lists/*
 
+# AWS CLI
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+		  awscli \
+	&& rm -rf /var/lib/apt/lists/*
+
 RUN \
     export DISPLAY=:99.0
 
