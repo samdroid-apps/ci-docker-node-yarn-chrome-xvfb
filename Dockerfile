@@ -139,4 +139,8 @@ RUN \
 CMD \
     Xvfb -ac $DISPLAY &
 
+
+RUN mkdir -p /home/node/.cache/yarn ; chown -R node:node /home/node/.cache/yarn
+VOLUME ["/home/node/.cache/yarn"]
+
 USER node
