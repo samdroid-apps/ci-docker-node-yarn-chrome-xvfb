@@ -6,22 +6,26 @@
 FROM buildpack-deps:xenial-scm
 
 # jdk
-RUN \
-  apt-get update && \
-  apt-get install -y \
-    software-properties-common \
-	&& rm -rf /var/lib/apt/lists/*
-RUN \
-  echo debconf shared/accepted-oracle-license-v1-1 select true | \
-    debconf-set-selections && \
-  echo debconf shared/accepted-oracle-license-v1-1 seen true | \
-    debconf-set-selections && \
-  add-apt-repository ppa:linuxuprising/java && \
-  apt-get update && \
-  apt-get install -y \
-    oracle-java10-installer \
-    oracle-java10-set-default \
-  && rm -rf /var/lib/apt/lists/*
+#
+# UTF-8 by default
+#
+RUN apt-get -qq update && \
+    apt-get -qqy install gnupg2 locales && \
+    locale-gen en_US.UTF-8 && \
+    rm -rf /var/lib/apt/lists/*
+
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+#
+# Pull Zulu OpenJDK binaries from official repository:
+#
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0xB1998361219BD9C9 && \
+    echo "deb http://repos.azulsystems.com/ubuntu stable main" >> /etc/apt/sources.list.d/zulu.list && \
+    apt-get -qq update && \
+    apt-get -qqy install zulu-10 && \
+    rm -rf /var/lib/apt/lists/*
 
 # --- Begin node ---
 # Copied and adapted from https://github.com/nodejs/docker-node/blob/master/10/jessie/Dockerfile
@@ -52,6 +56,11 @@ RUN set -ex \
   done
 
 ENV NODE_VERSION 10.10.0
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+		  xz-utils \
+	&& rm -rf /var/lib/apt/lists/*
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
