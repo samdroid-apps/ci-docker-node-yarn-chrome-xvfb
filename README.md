@@ -11,5 +11,6 @@ Docker image which has installed the following:
 - jq
 - build-essential
 - dependencies for node-canvas
+- git-lfs
 
 Also see [Docker Hub](https://hub.docker.com/r/canvadev/ci-docker-node-yarn-chrome-xvfb/).
