@@ -138,8 +138,8 @@ RUN \
 
 # AWS CLI
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-		  awscli \
+    apt-get install -y --no-install-recommends python3-pip && \
+    pip3 install awscli && \
 	&& rm -rf /var/lib/apt/lists/*
 
 # git LFS
